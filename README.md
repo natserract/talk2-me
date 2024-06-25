@@ -50,4 +50,4 @@ Go to https://agents-playground.livekit.io/
 ```sh
 LOG: [W NNPACK.cpp:64] Could not initialize NNPACK! Reason: Unsupported hardware.
 ```
-Still looking how to solve this issue. Currently only able to voice talks.
+> Still looking how to solve this issue. Currently only able to voice talks.
