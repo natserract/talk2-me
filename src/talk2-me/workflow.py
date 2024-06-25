@@ -1,19 +1,17 @@
 import asyncio
 import logging
 
-from livekit.agents import JobContext, JobRequest
+from livekit.agents import JobContext, JobRequest, tokenize, tts
 from livekit.agents.llm import ChatContext, ChatMessage, ChatRole
 from livekit.agents.voice_assistant import VoiceAssistant
-from livekit.plugins import silero
+from livekit.plugins import deepgram, openai
 
-from .model_providers.openai.openai import OpenAIProvider
+from .configs.app_config import Talk2MeConfig
+from .providers.livekit.plugins import silero
 
 
 class WorkflowManager:
     async def arun_workflow(self, ctx: JobContext):
-        openai = OpenAIProvider()
-
-        # Create an initial chat context with a system prompt
         initial_ctx = ChatContext(
             messages=[
                 ChatMessage(
@@ -22,26 +20,26 @@ class WorkflowManager:
                 )
             ]
         )
+
+        # Since OpenAI does not support streaming TTS, we'll use it with a StreamAdapter
+        # to make it compatible with the VoiceAssistant
+        openai_tts = tts.StreamAdapter(
+            tts=openai.TTS(voice="alloy"),
+            sentence_tokenizer=tokenize.basic.SentenceTokenizer(),
+        )
+        llm = openai.LLM(model=Talk2MeConfig.openai.OPENAI_MODEL)
         assistant = VoiceAssistant(
             vad=silero.VAD(),
-            stt=openai.stt.invoke(),
-            llm=openai.llm.invoke(),
-            tts=openai.tts.invoke(),
-            chat_ctx=initial_ctx,  # Chat history context
+            stt=deepgram.STT(),
+            llm=llm,
+            tts=openai_tts,
+            chat_ctx=initial_ctx,
         )
-
-        # Start the voice assistant with the LiveKit room
         assistant.start(ctx.room)
-        await asyncio.sleep(3)
 
-        # Greets the user with an initial message
+        await asyncio.sleep(1)
         await assistant.say("Hey, how can I help you today?", allow_interruptions=True)
 
-    # This function is called when the worker receives a job request
-    # from a LiveKit server.
     async def request_fnc(self, req: JobRequest) -> None:
         logging.info("received request %s", req)
-        # Accept the job tells the LiveKit server that this worker
-        # wants the job. After the LiveKit server acknowledges that job is accepted,
-        # the entrypoint function is called.
         await req.accept(self.arun_workflow)

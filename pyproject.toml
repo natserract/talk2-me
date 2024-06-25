@@ -9,22 +9,18 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.12,<3.13"
+python = ">=3.9,<3.13"
 livekit = "^0.11.1"
 pydantic = "^2.7.4"
 python-dotenv = "^1.0.1"
 livekit-agents = "^0.7.2"
 livekit-plugins-deepgram = "^0.5.1"
 livekit-plugins-openai = "^0.6.0"
-livekit-plugins-silero = "*"
+torch = "=2.2.2"
+livekit-plugins-silero = "=0.2.0"
 
 [tool.poetry.scripts]
 talk2-me = "src.talk2-me.main:run"
-
-[[tool.poetry.source]]
-name = 'pypi_'  # needed until python-poetry/poetry#3456 is resolved.
-url = 'https://pypi.org/simple'
-secondary = false
 
 [build-system]
 requires = ["poetry-core"]

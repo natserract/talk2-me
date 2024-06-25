@@ -1,2 +1,0 @@
-def utils():
-  print("Hello")
