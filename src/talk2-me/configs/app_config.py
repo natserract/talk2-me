@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
+from .service.deepgram import DeepgramConfig
 from .service.livekit import LivekitConfig
 from .service.openai import OpenAIConfig
 
@@ -14,4 +15,7 @@ class Talk2MeConfig:
         LIVEKIT_URL=os.environ.get("LIVEKIT_URL"),
         LIVEKIT_API_KEY=os.environ.get("LIVEKIT_API_KEY"),
         LIVEKIT_API_SECRET=os.environ.get("LIVEKIT_API_SECRET"),
+    )
+    deepgram = DeepgramConfig(
+        DEEPGRAM_API_KEY=os.environ.get("DEEPGRAM_API_KEY"),
     )
