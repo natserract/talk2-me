@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "talk2-me"
+version = "0.1.0"
+description = ""
+authors = ["Alfin Surya <benjaminstwo@gmail.com>"]
+readme = "README.md"
+packages = [{include = "talk2-me", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+
+[tool.poetry.scripts]
+talk2-me = "src.talk2-me.main:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
