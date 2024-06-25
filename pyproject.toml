@@ -4,7 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Alfin Surya <benjaminstwo@gmail.com>"]
 readme = "README.md"
-packages = [{include = "talk2-me", from = "src"}]
+packages = [
+  {include = "talk2-me", from = "src"},
+]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
@@ -14,9 +16,15 @@ python-dotenv = "^1.0.1"
 livekit-agents = "^0.7.2"
 livekit-plugins-deepgram = "^0.5.1"
 livekit-plugins-openai = "^0.6.0"
+livekit-plugins-silero = "*"
 
 [tool.poetry.scripts]
 talk2-me = "src.talk2-me.main:run"
+
+[[tool.poetry.source]]
+name = 'pypi_'  # needed until python-poetry/poetry#3456 is resolved.
+url = 'https://pypi.org/simple'
+secondary = false
 
 [build-system]
 requires = ["poetry-core"]

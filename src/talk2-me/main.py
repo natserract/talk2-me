@@ -1,7 +1,8 @@
-from .configs.app_config import Talk2MeConfig
-from .utils import utils
+from livekit.agents import WorkerOptions, cli
+
+from .workflow import WorkflowManager
 
 
 def run():
-    app_config = Talk2MeConfig()
-    utils()
+    workflow = WorkflowManager()
+    cli.run_app(WorkerOptions(workflow.request_fnc))

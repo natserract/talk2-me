@@ -10,3 +10,5 @@ class OpenAIConfig(BaseModel):
         description="",
         default=None,
     )
+
+    OPENAI_MODEL: str = Field(description="", default="gpt-3.5-turbo")

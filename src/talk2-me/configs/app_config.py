@@ -10,7 +10,10 @@ load_dotenv()
 
 
 class Talk2MeConfig:
-    openai = OpenAIConfig(OPENAI_API_KEY=os.environ.get("OPENAI_API_KEY"))
+    openai = OpenAIConfig(
+        OPENAI_API_KEY=os.environ.get("OPENAI_API_KEY"),
+        OPENAI_MODEL=os.environ.get("OPENAI_MODEL"),
+    )
     livekit = LivekitConfig(
         LIVEKIT_URL=os.environ.get("LIVEKIT_URL"),
         LIVEKIT_API_KEY=os.environ.get("LIVEKIT_API_KEY"),
