@@ -6,8 +6,8 @@ from livekit.agents.llm import ChatContext, ChatMessage, ChatRole
 from livekit.agents.voice_assistant import VoiceAssistant
 from livekit.plugins import deepgram, openai
 
-from .configs.app_config import Talk2MeConfig
-from .providers.livekit.plugins import silero
+from configs.app_config import Talk2MeConfig
+from providers.livekit.plugins import silero
 
 
 class WorkflowManager:

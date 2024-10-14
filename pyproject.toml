@@ -1,27 +1,31 @@
-[tool.poetry]
+[project]
 name = "talk2-me"
 version = "0.1.0"
 description = ""
-authors = ["Alfin Surya <benjaminstwo@gmail.com>"]
+authors = [{ name = "natserract", email = "benjaminstwo@gmail.com" }]
 readme = "README.md"
-packages = [
-  {include = "talk2-me", from = "src"},
+requires-python = ">=3.9,<3.13"
+
+dependencies = [
+    "livekit==0.11.1",
+    "pydantic==2.7.4",
+    "python-dotenv==1.0.1",
+    "livekit-agents==0.7.2",
+    "livekit-plugins-deepgram==0.5.1",
+    "livekit-plugins-openai==0.6.0",
+    "torch==2.2.2",
+    "livekit-plugins-silero==0.2.0",
+    "torchaudio==2.2.2",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.13"
-livekit = "^0.11.1"
-pydantic = "^2.7.4"
-python-dotenv = "^1.0.1"
-livekit-agents = "^0.7.2"
-livekit-plugins-deepgram = "^0.5.1"
-livekit-plugins-openai = "^0.6.0"
-torch = "=2.2.2"
-livekit-plugins-silero = "=0.2.0"
+[tool.rye.scripts]
+talk2-me = "python src/talk2-me/main.py"
 
-[tool.poetry.scripts]
-talk2-me = "src.talk2-me.main:run"
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = []
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
